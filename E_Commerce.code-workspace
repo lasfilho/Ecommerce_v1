@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "name": "E-Commerce",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/bin": true,
+      "**/obj": true
+    }
+  }
+}
