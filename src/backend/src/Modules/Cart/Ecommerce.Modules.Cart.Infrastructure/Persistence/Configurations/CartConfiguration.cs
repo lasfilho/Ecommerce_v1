@@ -1,6 +1,6 @@
-using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 
 namespace Ecommerce.Modules.Cart.Infrastructure.Persistence.Configurations;
 

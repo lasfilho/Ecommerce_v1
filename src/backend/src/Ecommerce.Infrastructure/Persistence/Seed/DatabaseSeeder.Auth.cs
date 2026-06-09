@@ -1,6 +1,5 @@
 using Ecommerce.Modules.Identity.Application.Abstractions;
 using Ecommerce.Modules.Identity.Domain.Entities;
-using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

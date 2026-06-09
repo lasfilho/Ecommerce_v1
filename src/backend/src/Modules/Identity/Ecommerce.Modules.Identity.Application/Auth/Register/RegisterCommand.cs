@@ -1,6 +1,6 @@
+using Ecommerce.Modules.Identity.Application.Abstractions;
 using Ecommerce.Modules.Identity.Application.Models;
 using Ecommerce.Modules.Identity.Application.Services;
-using Ecommerce.Modules.Identity.Application.Abstractions;
 using Ecommerce.Modules.Identity.Domain.Constants;
 using Ecommerce.Modules.Identity.Domain.Entities;
 using Ecommerce.Shared.Application;

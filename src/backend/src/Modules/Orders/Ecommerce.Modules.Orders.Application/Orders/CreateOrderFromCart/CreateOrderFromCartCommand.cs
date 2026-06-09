@@ -1,16 +1,14 @@
-using Ecommerce.Modules.Cart.Application.Common;
 using Ecommerce.Modules.Cart.Application.Abstractions;
+using Ecommerce.Modules.Cart.Application.Common;
 using Ecommerce.Modules.Cart.Application.Services;
 using Ecommerce.Modules.Cart.Domain.Enums;
 using Ecommerce.Modules.Catalog.Application.Abstractions;
-using Ecommerce.Modules.Catalog.Domain.Entities;
 using Ecommerce.Modules.Identity.Application.Abstractions;
 using Ecommerce.Modules.Orders.Application.Abstractions;
 using Ecommerce.Modules.Orders.Application.Mapping;
 using Ecommerce.Modules.Orders.Application.Models;
 using Ecommerce.Modules.Orders.Domain;
 using Ecommerce.Modules.Orders.Domain.Entities;
-using Ecommerce.Modules.Orders.Domain.Enums;
 using Ecommerce.Shared.Application;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

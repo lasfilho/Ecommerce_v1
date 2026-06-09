@@ -1,6 +1,3 @@
-using Ecommerce.Modules.Identity.Application.Abstractions;
-using Ecommerce.Api.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Ecommerce.Api.Extensions;

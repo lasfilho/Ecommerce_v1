@@ -1,6 +1,5 @@
 using Ecommerce.Modules.Catalog.Application.Models;
 using Ecommerce.Modules.Catalog.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Modules.Catalog.Application.Mapping;
 

@@ -3,6 +3,8 @@ using Ecommerce.Api.Contracts.Catalog;
 using Ecommerce.Api.Extensions;
 using Ecommerce.Modules.Catalog.Application.Categories.CreateCategory;
 using Ecommerce.Modules.Catalog.Application.Categories.ListCategories;
+using Ecommerce.Modules.Catalog.Application.Categories.SetCategoryStatus;
+using Ecommerce.Modules.Catalog.Application.Categories.UpdateCategory;
 using Ecommerce.Modules.Catalog.Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -51,5 +53,40 @@ public sealed class CategoriesController(ISender sender) : ControllerBase
             nameof(List),
             new { version = HttpContext.GetRequestedApiVersion()?.ToString() ?? "1.0" },
             result.Value);
+    }
+
+    [HttpPut("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Update(
+        Guid id,
+        [FromBody] UpdateCategoryRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(
+            new UpdateCategoryCommand(
+                id,
+                request.Name,
+                request.Slug,
+                request.Description,
+                request.ParentCategoryId),
+            cancellationToken);
+
+        return this.ToActionResult(result);
+    }
+
+    [HttpPatch("{id:guid}/status")]
+    [Authorize(Policy = "AdminOnly")]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SetStatus(
+        Guid id,
+        [FromBody] SetCategoryStatusRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(
+            new SetCategoryStatusCommand(id, request.IsActive),
+            cancellationToken);
+
+        return this.ToActionResult(result);
     }
 }

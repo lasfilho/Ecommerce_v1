@@ -1,6 +1,5 @@
 using Ecommerce.Modules.Orders.Application.Abstractions;
 using Ecommerce.Modules.Orders.Domain.Entities;
-using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Persistence.Orders;

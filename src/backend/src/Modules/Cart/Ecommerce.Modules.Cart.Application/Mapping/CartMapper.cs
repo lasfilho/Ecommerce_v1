@@ -1,6 +1,6 @@
-using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 using Ecommerce.Modules.Cart.Application.Models;
 using Ecommerce.Modules.Catalog.Domain.Entities;
+using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 
 namespace Ecommerce.Modules.Cart.Application.Mapping;
 

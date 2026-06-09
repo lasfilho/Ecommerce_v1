@@ -64,7 +64,15 @@ dotnet ef database update \
 cd src/backend
 dotnet restore
 dotnet build
+dotnet test
 dotnet run --project src/Ecommerce.Api
+```
+
+## Qualidade
+
+```bash
+dotnet test tests/Ecommerce.UnitTests
+dotnet format Ecommerce.sln --verify-no-changes
 ```
 
 A API sobe em `http://localhost:5080` (perfil http).

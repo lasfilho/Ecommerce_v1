@@ -32,4 +32,10 @@ public sealed class User : Shared.Domain.AuditableEntity<Guid>
     public bool IsActive { get; private set; }
 
     public IReadOnlyCollection<UserRole> UserRoles => _userRoles.AsReadOnly();
+
+    public void SetActive(bool isActive, DateTime updatedAt)
+    {
+        IsActive = isActive;
+        MarkUpdated(updatedAt);
+    }
 }

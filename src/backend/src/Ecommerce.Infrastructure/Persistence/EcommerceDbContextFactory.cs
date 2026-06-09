@@ -1,4 +1,3 @@
-using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;

@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend — build, format, test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore Ecommerce.sln
+
+      - name: Format check
+        run: dotnet format Ecommerce.sln --verify-no-changes --verbosity diagnostic
+
+      - name: Build
+        run: dotnet build Ecommerce.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Ecommerce.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+  frontend:
+    name: Frontend — lint, format, build, test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: src/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prettier check
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests
+        run: npm run test:ci

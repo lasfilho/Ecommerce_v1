@@ -1,8 +1,7 @@
 using Ecommerce.Modules.Cart.Application.Abstractions;
-using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 using Ecommerce.Modules.Cart.Domain.Entities;
-using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 
 namespace Ecommerce.Infrastructure.Persistence.Cart;
 

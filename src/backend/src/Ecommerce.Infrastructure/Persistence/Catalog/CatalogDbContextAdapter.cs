@@ -1,6 +1,5 @@
 using Ecommerce.Modules.Catalog.Application.Abstractions;
 using Ecommerce.Modules.Catalog.Domain.Entities;
-using Ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.Persistence.Catalog;

@@ -1,4 +1,3 @@
-using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Shared.Application;
 using Microsoft.EntityFrameworkCore;
 

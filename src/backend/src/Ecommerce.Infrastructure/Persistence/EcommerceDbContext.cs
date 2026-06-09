@@ -1,14 +1,14 @@
-using Ecommerce.Infrastructure.Abstractions;
 using Ecommerce.Infrastructure.Persistence.Interceptors;
-using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
-using Ecommerce.Modules.Cart.Domain.Entities;using Ecommerce.Modules.Catalog.Domain.Entities;
-using Ecommerce.Modules.Identity.Domain.Entities;
-using Ecommerce.Modules.Orders.Domain.Entities;
+using Ecommerce.Modules.Cart.Domain.Entities;
 using Ecommerce.Modules.Cart.Infrastructure;
+using Ecommerce.Modules.Catalog.Domain.Entities;
 using Ecommerce.Modules.Catalog.Infrastructure;
+using Ecommerce.Modules.Identity.Domain.Entities;
 using Ecommerce.Modules.Identity.Infrastructure;
+using Ecommerce.Modules.Orders.Domain.Entities;
 using Ecommerce.Modules.Orders.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
 
 namespace Ecommerce.Infrastructure.Persistence;
 

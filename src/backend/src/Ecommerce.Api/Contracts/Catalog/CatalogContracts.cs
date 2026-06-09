@@ -6,6 +6,14 @@ public sealed record CreateCategoryRequest(
     string? Description,
     Guid? ParentCategoryId);
 
+public sealed record UpdateCategoryRequest(
+    string Name,
+    string? Slug,
+    string? Description,
+    Guid? ParentCategoryId);
+
+public sealed record SetCategoryStatusRequest(bool IsActive);
+
 public sealed record CreateProductRequest(
     Guid CategoryId,
     string Name,

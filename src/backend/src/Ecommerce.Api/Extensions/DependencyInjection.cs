@@ -1,17 +1,15 @@
+using Ecommerce.Api.Services;
 using Ecommerce.Infrastructure;
+using Ecommerce.Modules.Cart.Application;
 using Ecommerce.Modules.Cart.Infrastructure;
 using Ecommerce.Modules.Catalog.Application;
 using Ecommerce.Modules.Catalog.Infrastructure;
-using Ecommerce.Modules.Cart.Application;
 using Ecommerce.Modules.Identity.Application;
 using Ecommerce.Modules.Identity.Application.Abstractions;
 using Ecommerce.Modules.Identity.Infrastructure;
 using Ecommerce.Modules.Orders.Application;
 using Ecommerce.Modules.Orders.Infrastructure;
 using Ecommerce.Shared.Application;
-using Ecommerce.Api.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Ecommerce.Api.Extensions;
 

@@ -49,4 +49,10 @@ public sealed class Category : Shared.Domain.AuditableEntity<Guid>, Shared.Domai
         ParentCategoryId = parentCategoryId;
         MarkUpdated(updatedAt);
     }
+
+    public void SetActive(bool isActive, DateTime updatedAt)
+    {
+        IsActive = isActive;
+        MarkUpdated(updatedAt);
+    }
 }
