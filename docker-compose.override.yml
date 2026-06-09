@@ -1,0 +1,32 @@
+# Overrides automáticos para desenvolvimento local (hot reload).
+# Carregado automaticamente por: docker compose up
+
+services:
+  api:
+    build:
+      target: development
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    volumes:
+      - ./src/backend:/src
+      - /src/src/Ecommerce.Api/bin
+      - /src/src/Ecommerce.Api/obj
+      - /src/src/Ecommerce.Infrastructure/bin
+      - /src/src/Ecommerce.Infrastructure/obj
+      - /src/src/Ecommerce.Shared/bin
+      - /src/src/Ecommerce.Shared/obj
+    command: >
+      sh -c "dotnet restore src/Ecommerce.Api/Ecommerce.Api.csproj &&
+             dotnet watch run --project src/Ecommerce.Api/Ecommerce.Api.csproj
+             --no-launch-profile --urls http://+:8080"
+
+  frontend:
+    build:
+      target: development
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "${FRONTEND_PORT:-4200}:4200"
+    volumes:
+      - ./src/frontend:/app
+      - /app/node_modules
