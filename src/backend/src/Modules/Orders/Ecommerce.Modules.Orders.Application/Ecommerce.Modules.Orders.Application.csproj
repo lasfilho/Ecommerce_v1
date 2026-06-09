@@ -3,10 +3,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Ecommerce.Modules.Orders.Domain\Ecommerce.Modules.Orders.Domain.csproj" />
     <ProjectReference Include="..\..\..\Ecommerce.Shared\Ecommerce.Shared.csproj" />
+    <ProjectReference Include="..\..\Catalog\Ecommerce.Modules.Catalog.Application\Ecommerce.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="..\..\Cart\Ecommerce.Modules.Cart.Application\Ecommerce.Modules.Cart.Application.csproj" />
+    <ProjectReference Include="..\..\Identity\Ecommerce.Modules.Identity.Application\Ecommerce.Modules.Identity.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
   </ItemGroup>
 

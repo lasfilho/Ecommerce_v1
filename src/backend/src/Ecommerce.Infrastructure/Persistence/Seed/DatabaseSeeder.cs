@@ -59,7 +59,9 @@ public static partial class DatabaseSeeder
             "fone-bluetooth",
             "SKU-001",
             "Fone sem fio com cancelamento de ruído.",
+            "Fone Bluetooth com até 30h de bateria, drivers de 40mm e microfone integrado para chamadas.",
             299.90m,
+            249.90m,
             50,
             DateTime.UtcNow);
 

@@ -16,8 +16,10 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Name).HasColumnName("name").HasMaxLength(300).IsRequired();
         builder.Property(p => p.Slug).HasColumnName("slug").HasMaxLength(300).IsRequired();
         builder.Property(p => p.Sku).HasColumnName("sku").HasMaxLength(50).IsRequired();
-        builder.Property(p => p.Description).HasColumnName("description").HasMaxLength(4000);
+        builder.Property(p => p.ShortDescription).HasColumnName("short_description").HasMaxLength(500);
+        builder.Property(p => p.LongDescription).HasColumnName("long_description").HasMaxLength(8000);
         builder.Property(p => p.Price).HasColumnName("price").HasPrecision(18, 2);
+        builder.Property(p => p.PromotionalPrice).HasColumnName("promotional_price").HasPrecision(18, 2);
         builder.Property(p => p.StockQuantity).HasColumnName("stock_quantity");
         builder.Property(p => p.IsActive).HasColumnName("is_active").HasDefaultValue(true);
         builder.Property(p => p.IsDeleted).HasColumnName("is_deleted").HasDefaultValue(false);
@@ -38,6 +40,9 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasIndex(p => new { p.IsActive, p.IsDeleted })
             .HasDatabaseName("ix_products_active_not_deleted");
+
+        builder.HasIndex(p => p.Price)
+            .HasDatabaseName("ix_products_price");
 
         builder.HasQueryFilter(p => !p.IsDeleted);
 

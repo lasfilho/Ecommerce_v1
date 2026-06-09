@@ -7,6 +7,9 @@
     <ProjectReference Include="..\Modules\Orders\Ecommerce.Modules.Orders.Infrastructure\Ecommerce.Modules.Orders.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Identity\Ecommerce.Modules.Identity.Infrastructure\Ecommerce.Modules.Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Identity\Ecommerce.Modules.Identity.Application\Ecommerce.Modules.Identity.Application.csproj" />
+    <ProjectReference Include="..\Modules\Catalog\Ecommerce.Modules.Catalog.Application\Ecommerce.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="..\Modules\Cart\Ecommerce.Modules.Cart.Application\Ecommerce.Modules.Cart.Application.csproj" />
+    <ProjectReference Include="..\Modules\Orders\Ecommerce.Modules.Orders.Application\Ecommerce.Modules.Orders.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

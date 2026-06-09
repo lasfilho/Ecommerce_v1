@@ -35,4 +35,18 @@ public sealed class Category : Shared.Domain.AuditableEntity<Guid>, Shared.Domai
 
     public Category? ParentCategory { get; private set; }
     public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
+
+    public void Update(
+        string name,
+        string slug,
+        string? description,
+        Guid? parentCategoryId,
+        DateTime updatedAt)
+    {
+        Name = name;
+        Slug = slug;
+        Description = description;
+        ParentCategoryId = parentCategoryId;
+        MarkUpdated(updatedAt);
+    }
 }

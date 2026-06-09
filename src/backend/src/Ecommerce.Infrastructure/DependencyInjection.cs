@@ -1,6 +1,13 @@
 using Ecommerce.Infrastructure.Abstractions;
 using Ecommerce.Infrastructure.Persistence;
+using Ecommerce.Infrastructure.Persistence.Catalog;
+using Ecommerce.Infrastructure.Persistence.Cart;
 using Ecommerce.Infrastructure.Persistence.Identity;
+using Ecommerce.Infrastructure.Persistence.Orders;
+using Ecommerce.Modules.Cart.Application.Abstractions;
+using Ecommerce.Modules.Catalog.Application.Abstractions;
+using Ecommerce.Modules.Orders.Application.Abstractions;
+using Ecommerce.Shared.Application;
 using Ecommerce.Infrastructure.Persistence.Interceptors;
 using Ecommerce.Infrastructure.Persistence.Seed;
 using Ecommerce.Modules.Identity.Application.Abstractions;
@@ -40,6 +47,10 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IIdentityDbContext, IdentityDbContextAdapter>();
+        services.AddScoped<ICatalogDbContext, CatalogDbContextAdapter>();
+        services.AddScoped<ICartDbContext, CartDbContextAdapter>();
+        services.AddScoped<IOrdersDbContext, OrdersDbContextAdapter>();
+        services.AddScoped<IUnitOfWork, EcommerceUnitOfWork>();
 
         return services;
     }

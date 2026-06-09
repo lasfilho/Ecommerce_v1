@@ -1,7 +1,7 @@
 using Ecommerce.Infrastructure.Abstractions;
 using Ecommerce.Infrastructure.Persistence.Interceptors;
-using Ecommerce.Modules.Cart.Domain.Entities;
-using Ecommerce.Modules.Catalog.Domain.Entities;
+using CartEntity = Ecommerce.Modules.Cart.Domain.Entities.Cart;
+using Ecommerce.Modules.Cart.Domain.Entities;using Ecommerce.Modules.Catalog.Domain.Entities;
 using Ecommerce.Modules.Identity.Domain.Entities;
 using Ecommerce.Modules.Orders.Domain.Entities;
 using Ecommerce.Modules.Cart.Infrastructure;
@@ -32,7 +32,7 @@ public sealed class EcommerceDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductImage> ProductImages => Set<ProductImage>();
-    public DbSet<Cart> Carts => Set<Cart>();
+    public DbSet<CartEntity> Carts => Set<CartEntity>();
     public DbSet<CartItem> CartItems => Set<CartItem>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
