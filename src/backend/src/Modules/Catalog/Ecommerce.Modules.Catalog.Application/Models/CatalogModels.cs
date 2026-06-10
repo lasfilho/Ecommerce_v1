@@ -65,3 +65,33 @@ public sealed record ProductImageInput(
     string? AltText,
     int DisplayOrder,
     bool IsPrimary);
+
+public sealed record PromotionResponse(
+    Guid Id,
+    string Slug,
+    string Tag,
+    string Title,
+    string Subtitle,
+    string? Highlight,
+    string? HighlightLabel,
+    string BackgroundClass,
+    string FilterType,
+    Guid? CategoryId,
+    decimal? MinPrice,
+    string? Keywords,
+    IReadOnlyList<Guid> ProductIds,
+    int DisplayOrder,
+    bool IsActive,
+    DateTime? StartsAt,
+    DateTime? EndsAt,
+    DateTime CreatedAt,
+    DateTime? UpdatedAt);
+
+public sealed record PromotionBannerResponse(
+    string Slug,
+    string Tag,
+    string Title,
+    string Subtitle,
+    string? Highlight,
+    string? HighlightLabel,
+    string BackgroundClass);

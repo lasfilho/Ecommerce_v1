@@ -46,7 +46,9 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 export class InputComponent implements ControlValueAccessor {
   readonly label = input<string>();
   readonly placeholder = input('');
-  readonly type = input<'text' | 'email' | 'password' | 'number' | 'search'>('text');
+  readonly type = input<'text' | 'email' | 'password' | 'number' | 'search' | 'datetime-local'>(
+    'text'
+  );
   readonly hint = input<string>();
   readonly error = input<string>();
   readonly required = input(false);

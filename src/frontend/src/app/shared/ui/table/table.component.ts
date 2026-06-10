@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="overflow-hidden rounded-xl border border-border bg-surface-elevated shadow-soft">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[640px] text-left text-sm">
+        <table class="w-full min-w-[28rem] text-left text-sm md:min-w-[40rem]">
           <ng-content select="[tableHeader]" />
           <ng-content select="[tableBody]" />
         </table>
@@ -33,6 +33,26 @@ import { Component } from '@angular/core';
     }
     :host ::ng-deep tbody tr:hover {
       background: color-mix(in srgb, var(--color-brand, #4f46e5) 4%, transparent);
+    }
+    :host ::ng-deep th.col-hide-sm,
+    :host ::ng-deep td.col-hide-sm {
+      display: none;
+    }
+    :host ::ng-deep th.col-hide-md,
+    :host ::ng-deep td.col-hide-md {
+      display: none;
+    }
+    @media (min-width: 640px) {
+      :host ::ng-deep th.col-hide-sm,
+      :host ::ng-deep td.col-hide-sm {
+        display: table-cell;
+      }
+    }
+    @media (min-width: 768px) {
+      :host ::ng-deep th.col-hide-md,
+      :host ::ng-deep td.col-hide-md {
+        display: table-cell;
+      }
     }
   `
 })

@@ -303,6 +303,124 @@ namespace Ecommerce.Infrastructure.Persistence.Migrations
                     b.ToTable("product_images", "catalog");
                 });
 
+            modelBuilder.Entity("Ecommerce.Modules.Catalog.Domain.Entities.Promotion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("BackgroundClass")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("background_class");
+
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("category_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("integer")
+                        .HasColumnName("display_order");
+
+                    b.Property<DateTime?>("EndsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ends_at");
+
+                    b.Property<int>("FilterType")
+                        .HasColumnType("integer")
+                        .HasColumnName("filter_type");
+
+                    b.Property<string>("Highlight")
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("highlight");
+
+                    b.Property<string>("HighlightLabel")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasColumnName("highlight_label");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Keywords")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("keywords");
+
+                    b.Property<decimal?>("MinPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("min_price");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("slug");
+
+                    b.Property<DateTime?>("StartsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("starts_at");
+
+                    b.Property<string>("Subtitle")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("subtitle");
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
+                        .HasColumnName("tag");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("title");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_promotions");
+
+                    b.HasIndex("DisplayOrder")
+                        .HasDatabaseName("ix_promotions_display_order");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasDatabaseName("ix_promotions_slug");
+
+                    b.ToTable("promotions", "catalog");
+                });
+
+            modelBuilder.Entity("Ecommerce.Modules.Catalog.Domain.Entities.PromotionProduct", b =>
+                {
+                    b.Property<Guid>("PromotionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("promotion_id");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("PromotionId", "ProductId")
+                        .HasName("pk_promotion_products");
+
+                    b.ToTable("promotion_products", "catalog");
+                });
+
             modelBuilder.Entity("Ecommerce.Modules.Identity.Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
@@ -652,6 +770,16 @@ namespace Ecommerce.Infrastructure.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Ecommerce.Modules.Catalog.Domain.Entities.PromotionProduct", b =>
+                {
+                    b.HasOne("Ecommerce.Modules.Catalog.Domain.Entities.Promotion", null)
+                        .WithMany("Products")
+                        .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_promotion_products_promotions_promotion_id");
+                });
+
             modelBuilder.Entity("Ecommerce.Modules.Identity.Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Ecommerce.Modules.Identity.Domain.Entities.User", "User")
@@ -710,6 +838,11 @@ namespace Ecommerce.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Ecommerce.Modules.Catalog.Domain.Entities.Product", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Ecommerce.Modules.Catalog.Domain.Entities.Promotion", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Ecommerce.Modules.Identity.Domain.Entities.User", b =>

@@ -22,10 +22,10 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
     LucideTrash2
   ],
   template: `
-    <section class="page-container py-10 sm:py-14">
-      <div class="mb-8">
-        <h1 class="section-title">Seu carrinho</h1>
-        <p class="section-subtitle">Revise itens e quantidades antes de finalizar o pedido.</p>
+    <section class="page-container py-4 sm:py-8">
+      <div class="mb-6 rounded-lg bg-header px-4 py-3 text-white sm:px-6">
+        <h1 class="text-lg font-bold sm:text-xl">Meu carrinho</h1>
+        <p class="text-sm text-white/70">{{ cart.itemCount() }} item(ns) selecionado(s)</p>
       </div>
 
       @if (cart.loading()) {
@@ -72,7 +72,7 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
                     }
                   </div>
 
-                  <div class="flex items-center gap-4">
+                  <div class="flex flex-wrap items-center justify-between gap-3 sm:justify-end">
                     <div class="inline-flex items-center rounded-lg border border-border">
                       <button
                         type="button"

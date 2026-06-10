@@ -8,7 +8,7 @@ import { NotificationService } from '../../services/notification.service';
   imports: [LucideCircleCheck, LucideCircleX, LucideInfo],
   template: `
     @if (notificationService.notification(); as note) {
-      <div class="fixed bottom-6 right-6 z-[100] max-w-sm">
+      <div class="fixed bottom-4 left-4 right-4 z-[100] sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm">
         <div
           class="flex items-start gap-3 rounded-xl border px-4 py-3 shadow-lift backdrop-blur-md"
           [class]="bannerClasses()"

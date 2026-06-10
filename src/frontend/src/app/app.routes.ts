@@ -9,6 +9,8 @@ import { AdminOrderDetailComponent } from './features/admin/orders/admin-order-d
 import { AdminOrdersComponent } from './features/admin/orders/admin-orders.component';
 import { AdminProductFormComponent } from './features/admin/products/admin-product-form.component';
 import { AdminProductsComponent } from './features/admin/products/admin-products.component';
+import { AdminPromotionFormComponent } from './features/admin/promotions/admin-promotion-form.component';
+import { AdminPromotionsComponent } from './features/admin/promotions/admin-promotions.component';
 import { AdminUsersComponent } from './features/admin/users/admin-users.component';
 import { CartPageComponent } from './features/cart/cart-page/cart-page.component';
 import { LoginComponent } from './features/auth/login/login.component';
@@ -32,6 +34,17 @@ export const routes: Routes = [
         title: 'Editar produto · Admin'
       },
       { path: 'categories', component: AdminCategoriesComponent, title: 'Categorias · Admin' },
+      { path: 'promotions', component: AdminPromotionsComponent, title: 'Promoções · Admin' },
+      {
+        path: 'promotions/new',
+        component: AdminPromotionFormComponent,
+        title: 'Nova promoção · Admin'
+      },
+      {
+        path: 'promotions/:id/edit',
+        component: AdminPromotionFormComponent,
+        title: 'Editar promoção · Admin'
+      },
       { path: 'orders', component: AdminOrdersComponent, title: 'Pedidos · Admin' },
       {
         path: 'orders/:id',

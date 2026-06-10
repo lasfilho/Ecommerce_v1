@@ -13,8 +13,15 @@ internal sealed class PasswordHasherService : IPasswordHasher
 
     public bool Verify(string password, string passwordHash)
     {
-        var result = _hasher.VerifyHashedPassword(null!, passwordHash, password);
-        return result is PasswordVerificationResult.Success
-            or PasswordVerificationResult.SuccessRehashNeeded;
+        try
+        {
+            var result = _hasher.VerifyHashedPassword(null!, passwordHash, password);
+            return result is PasswordVerificationResult.Success
+                or PasswordVerificationResult.SuccessRehashNeeded;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
     }
 }

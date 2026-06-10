@@ -9,6 +9,10 @@ module.exports = {
           elevated: 'var(--color-surface-elevated)',
           muted: 'var(--color-surface-muted)'
         },
+        header: {
+          DEFAULT: 'var(--color-header)',
+          secondary: 'var(--color-header-secondary)'
+        },
         border: {
           DEFAULT: 'var(--color-border)',
           strong: 'var(--color-border-strong)'
@@ -28,14 +32,21 @@ module.exports = {
           DEFAULT: 'var(--color-accent)',
           soft: 'var(--color-accent-soft)'
         },
+        deal: {
+          DEFAULT: 'var(--color-deal)'
+        },
+        success: {
+          DEFAULT: 'var(--color-success)',
+          soft: 'var(--color-success-soft)'
+        },
         danger: {
           DEFAULT: 'var(--color-danger)',
           soft: 'var(--color-danger-soft)'
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Syne"', '"Plus Jakarta Sans"', 'sans-serif']
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif']
       },
       borderRadius: {
         xl: 'var(--radius-lg)',

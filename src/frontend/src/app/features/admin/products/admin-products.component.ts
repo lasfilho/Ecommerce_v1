@@ -91,11 +91,11 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
           <thead tableHeader>
             <tr>
               <th>Produto</th>
-              <th>SKU</th>
-              <th>Categoria</th>
+              <th class="col-hide-sm">SKU</th>
+              <th class="col-hide-md">Categoria</th>
               <th>Preço</th>
               <th>Estoque</th>
-              <th>Status</th>
+              <th class="col-hide-sm">Status</th>
               <th></th>
             </tr>
           </thead>
@@ -103,15 +103,15 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
             @for (product of filteredProducts(); track product.id) {
               <tr>
                 <td class="font-medium">{{ product.name }}</td>
-                <td class="text-ink-muted">{{ product.sku }}</td>
-                <td>{{ product.category.name }}</td>
+                <td class="col-hide-sm text-ink-muted">{{ product.sku }}</td>
+                <td class="col-hide-md">{{ product.category.name }}</td>
                 <td>{{ product.price | currencyBrl }}</td>
                 <td>
                   <span [class.text-danger]="product.stockQuantity <= 5">{{
                     product.stockQuantity
                   }}</span>
                 </td>
-                <td>
+                <td class="col-hide-sm">
                   <ui-badge [variant]="product.isActive ? 'brand' : 'muted'">
                     {{ product.isActive ? 'Ativo' : 'Inativo' }}
                   </ui-badge>

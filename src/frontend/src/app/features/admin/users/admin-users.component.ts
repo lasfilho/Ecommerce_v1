@@ -30,19 +30,22 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
           <thead tableHeader>
             <tr>
               <th>Nome</th>
-              <th>E-mail</th>
-              <th>Perfis</th>
+              <th class="col-hide-sm">E-mail</th>
+              <th class="col-hide-md">Perfis</th>
               <th>Status</th>
-              <th>Cadastro</th>
+              <th class="col-hide-md">Cadastro</th>
               <th></th>
             </tr>
           </thead>
           <tbody tableBody>
             @for (user of users(); track user.id) {
               <tr>
-                <td class="font-medium">{{ user.firstName }} {{ user.lastName }}</td>
-                <td class="text-ink-muted">{{ user.email }}</td>
-                <td>
+                <td class="font-medium">
+                  <p>{{ user.firstName }} {{ user.lastName }}</p>
+                  <p class="mt-0.5 text-xs text-ink-muted md:hidden">{{ user.email }}</p>
+                </td>
+                <td class="col-hide-sm text-ink-muted">{{ user.email }}</td>
+                <td class="col-hide-md">
                   <div class="flex flex-wrap gap-1">
                     @for (role of user.roles; track role) {
                       <ui-badge [variant]="role === 'Admin' ? 'brand' : 'muted'">{{
@@ -56,7 +59,7 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
                     {{ user.isActive ? 'Ativo' : 'Inativo' }}
                   </ui-badge>
                 </td>
-                <td class="text-ink-muted">{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
+                <td class="col-hide-md text-ink-muted">{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
                 <td>
                   <ui-button
                     size="sm"

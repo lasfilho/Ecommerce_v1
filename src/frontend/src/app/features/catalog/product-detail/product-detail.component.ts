@@ -1,7 +1,7 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LucideArrowLeft, LucideMinus, LucidePlus, LucideShoppingBag } from '@lucide/angular';
+import { LucideArrowLeft, LucideMinus, LucidePlus, LucideShieldCheck, LucideShoppingCart, LucideTruck } from '@lucide/angular';
 import { finalize } from 'rxjs';
 import { ApiErrorService } from '../../../core/http/api-error.service';
 import { ProductDetail } from '../../../core/models/catalog.models';
@@ -10,7 +10,6 @@ import { CatalogService } from '../../../core/services/catalog.service';
 import { CartService } from '../../../core/services/cart.service';
 import { CurrencyBrlPipe } from '../../../shared/pipes/currency-brl.pipe';
 import { discountPercent, effectivePrice, hasDiscount } from '../../../shared/utils/product.utils';
-import { BadgeComponent } from '../../../shared/ui/badge/badge.component';
 import { ButtonComponent } from '../../../shared/ui/button/button.component';
 import { CardComponent } from '../../../shared/ui/card/card.component';
 
@@ -20,32 +19,29 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
   imports: [
     RouterLink,
     CardComponent,
-    BadgeComponent,
     ButtonComponent,
     CurrencyBrlPipe,
     LucideArrowLeft,
     LucideMinus,
     LucidePlus,
-    LucideShoppingBag
+    LucideShoppingCart,
+    LucideTruck,
+    LucideShieldCheck
   ],
   template: `
-    <section class="page-container py-8 sm:py-12">
+    <section class="page-container py-4 sm:py-8">
       <a
         routerLink="/"
-        class="mb-8 inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-brand"
+        class="mb-4 inline-flex items-center gap-2 text-sm font-medium text-brand hover:underline sm:mb-6"
       >
         <svg lucideArrowLeft [size]="16"></svg>
-        Voltar ao catálogo
+        Continuar comprando
       </a>
 
       @if (loading()) {
-        <div class="grid gap-8 lg:grid-cols-2">
-          <div class="aspect-square animate-pulse rounded-xl bg-surface-muted"></div>
-          <div class="space-y-4">
-            <div class="h-8 w-2/3 animate-pulse rounded bg-surface-muted"></div>
-            <div class="h-4 w-full animate-pulse rounded bg-surface-muted"></div>
-            <div class="h-4 w-4/5 animate-pulse rounded bg-surface-muted"></div>
-          </div>
+        <div class="grid gap-6 lg:grid-cols-[1fr_380px]">
+          <div class="aspect-square animate-pulse rounded-lg bg-surface-muted"></div>
+          <div class="h-80 animate-pulse rounded-lg bg-surface-muted"></div>
         </div>
       } @else if (error()) {
         <ui-card>
@@ -53,11 +49,9 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
         </ui-card>
       } @else {
         @if (product(); as item) {
-          <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <div class="grid gap-6 lg:grid-cols-[1fr_380px] lg:items-start lg:gap-8">
             <div class="space-y-4">
-              <div
-                class="overflow-hidden rounded-xl border border-border bg-surface-elevated shadow-soft"
-              >
+              <div class="marketplace-card overflow-hidden">
                 <img
                   [src]="selectedImage()"
                   [alt]="item.name"
@@ -66,11 +60,11 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
               </div>
 
               @if (item.images.length > 1) {
-                <div class="flex gap-3 overflow-x-auto pb-1">
+                <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
                   @for (image of item.images; track image.id) {
                     <button
                       type="button"
-                      class="h-20 w-20 shrink-0 overflow-hidden rounded-lg border transition-colors"
+                      class="h-16 w-16 shrink-0 overflow-hidden rounded-md border-2 transition-colors sm:h-20 sm:w-20"
                       [class.border-brand]="selectedImage() === image.url"
                       [class.border-border]="selectedImage() !== image.url"
                       (click)="selectedImageUrl.set(image.url)"
@@ -84,106 +78,120 @@ import { CardComponent } from '../../../shared/ui/card/card.component';
                   }
                 </div>
               }
-            </div>
-
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-                {{ item.category.name }}
-              </p>
-              <h1
-                class="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-              >
-                {{ item.name }}
-              </h1>
-              <p class="mt-2 text-sm text-ink-faint">SKU {{ item.sku }}</p>
-
-              <div class="mt-6 flex flex-wrap items-center gap-3">
-                @if (hasDiscount(item)) {
-                  <span class="text-lg text-ink-faint line-through">{{
-                    item.price | currencyBrl
-                  }}</span>
-                  <span class="font-display text-3xl font-semibold text-ink">{{
-                    effectivePrice(item) | currencyBrl
-                  }}</span>
-                  <ui-badge variant="accent">-{{ discountPercent(item) }}%</ui-badge>
-                } @else {
-                  <span class="font-display text-3xl font-semibold text-ink">{{
-                    item.price | currencyBrl
-                  }}</span>
-                }
-              </div>
-
-              @if (item.shortDescription) {
-                <p class="mt-6 text-base leading-relaxed text-ink-muted">
-                  {{ item.shortDescription }}
-                </p>
-              }
-
-              <div class="mt-8 flex flex-wrap items-center gap-4">
-                <div
-                  class="inline-flex items-center rounded-lg border border-border bg-surface-elevated"
-                >
-                  <button
-                    type="button"
-                    class="flex h-11 w-11 items-center justify-center text-ink-muted hover:text-ink"
-                    (click)="decreaseQuantity()"
-                    [disabled]="quantity() <= 1"
-                  >
-                    <svg lucideMinus [size]="16"></svg>
-                  </button>
-                  <span class="min-w-10 text-center text-sm font-semibold">{{ quantity() }}</span>
-                  <button
-                    type="button"
-                    class="flex h-11 w-11 items-center justify-center text-ink-muted hover:text-ink"
-                    (click)="increaseQuantity()"
-                    [disabled]="quantity() >= item.stockQuantity"
-                  >
-                    <svg lucidePlus [size]="16"></svg>
-                  </button>
-                </div>
-
-                <ui-button
-                  variant="primary"
-                  size="lg"
-                  [loading]="adding()"
-                  [disabled]="item.stockQuantity === 0"
-                  (clicked)="addToCart()"
-                >
-                  <svg lucideShoppingBag [size]="18"></svg>
-                  Adicionar ao carrinho
-                </ui-button>
-              </div>
-
-              @if (item.stockQuantity === 0) {
-                <p class="mt-3 text-sm text-danger">Produto esgotado</p>
-              } @else if (item.stockQuantity <= 5) {
-                <p class="mt-3 text-sm text-accent">
-                  Apenas {{ item.stockQuantity }} unidades disponíveis
-                </p>
-              }
-
-              @if (!auth.isAuthenticated()) {
-                <p class="mt-4 text-sm text-ink-muted">
-                  <a
-                    routerLink="/auth/login"
-                    [queryParams]="{ returnUrl: currentUrl }"
-                    class="font-medium text-brand hover:underline"
-                  >
-                    Faça login
-                  </a>
-                  para adicionar itens ao carrinho.
-                </p>
-              }
 
               @if (item.longDescription) {
-                <div class="mt-10">
-                  <ui-card padding="lg">
-                    <h2 class="font-display text-xl font-semibold text-ink">Descrição</h2>
-                    <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink-muted">
-                      {{ item.longDescription }}
-                    </p>
-                  </ui-card>
+                <ui-card padding="lg" class="hidden lg:block">
+                  <h2 class="text-lg font-bold text-ink">Descrição do produto</h2>
+                  <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink-muted">
+                    {{ item.longDescription }}
+                  </p>
+                </ui-card>
+              }
+            </div>
+
+            <!-- Buy box -->
+            <div class="lg:sticky lg:top-20">
+              <ui-card padding="lg" class="border-brand/20 shadow-soft">
+                <p class="text-xs font-medium text-brand">{{ item.category.name }}</p>
+                <h1 class="mt-1 text-xl font-bold leading-snug text-ink sm:text-2xl">
+                  {{ item.name }}
+                </h1>
+                <p class="mt-1 text-xs text-ink-faint">SKU {{ item.sku }}</p>
+
+                <div class="mt-4 border-b border-border pb-4">
+                  @if (hasDiscount(item)) {
+                    <span class="deal-badge mr-2">-{{ discountPercent(item) }}%</span>
+                    <p class="price-original mt-1">{{ item.price | currencyBrl }}</p>
+                    <p class="price-current">{{ effectivePrice(item) | currencyBrl }}</p>
+                  } @else {
+                    <p class="price-current">{{ item.price | currencyBrl }}</p>
+                  }
+                  <p class="mt-1 text-xs text-success">Em até 12x sem juros no cartão</p>
                 </div>
+
+                <div class="mt-4 space-y-2 text-sm">
+                  <div class="flex items-center gap-2 text-success">
+                    <svg lucideTruck [size]="16"></svg>
+                    <span>Frete grátis para todo o Brasil*</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-ink-muted">
+                    <svg lucideShieldCheck [size]="16"></svg>
+                    <span>Compra 100% protegida</span>
+                  </div>
+                </div>
+
+                @if (item.shortDescription) {
+                  <p class="mt-4 text-sm leading-relaxed text-ink-muted">{{ item.shortDescription }}</p>
+                }
+
+                <div class="mt-6 space-y-3">
+                  <p class="text-sm font-medium text-ink">Quantidade</p>
+                  <div class="inline-flex items-center rounded-md border border-border">
+                    <button
+                      type="button"
+                      class="flex h-10 w-10 items-center justify-center hover:bg-surface-muted"
+                      (click)="decreaseQuantity()"
+                      [disabled]="quantity() <= 1"
+                    >
+                      <svg lucideMinus [size]="16"></svg>
+                    </button>
+                    <span class="min-w-10 text-center text-sm font-bold">{{ quantity() }}</span>
+                    <button
+                      type="button"
+                      class="flex h-10 w-10 items-center justify-center hover:bg-surface-muted"
+                      (click)="increaseQuantity()"
+                      [disabled]="quantity() >= item.stockQuantity"
+                    >
+                      <svg lucidePlus [size]="16"></svg>
+                    </button>
+                  </div>
+
+                  <ui-button
+                    variant="primary"
+                    size="lg"
+                    [fullWidth]="true"
+                    [loading]="adding()"
+                    [disabled]="item.stockQuantity === 0"
+                    (clicked)="addToCart()"
+                  >
+                    <svg lucideShoppingCart [size]="18"></svg>
+                    Adicionar ao carrinho
+                  </ui-button>
+
+                  <ui-button variant="secondary" size="lg" [fullWidth]="true" [disabled]="true">
+                    Comprar agora
+                  </ui-button>
+                </div>
+
+                @if (item.stockQuantity === 0) {
+                  <p class="mt-3 text-sm font-medium text-danger">Produto esgotado</p>
+                } @else if (item.stockQuantity <= 5) {
+                  <p class="mt-3 text-sm font-medium text-deal">
+                    🔥 Apenas {{ item.stockQuantity }} unidades — corre!
+                  </p>
+                }
+
+                @if (!auth.isAuthenticated()) {
+                  <p class="mt-4 text-sm text-ink-muted">
+                    <a
+                      routerLink="/auth/login"
+                      [queryParams]="{ returnUrl: currentUrl }"
+                      class="font-semibold text-brand hover:underline"
+                    >
+                      Faça login
+                    </a>
+                    para comprar.
+                  </p>
+                }
+              </ui-card>
+
+              @if (item.longDescription) {
+                <ui-card padding="lg" class="mt-4 lg:hidden">
+                  <h2 class="text-lg font-bold text-ink">Descrição</h2>
+                  <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink-muted">
+                    {{ item.longDescription }}
+                  </p>
+                </ui-card>
               }
             </div>
           </div>

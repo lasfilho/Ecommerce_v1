@@ -62,9 +62,9 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
               <th>Pedido</th>
               <th>Cliente</th>
               <th>Total</th>
-              <th>Itens</th>
+              <th class="col-hide-sm">Itens</th>
               <th>Status</th>
-              <th>Data</th>
+              <th class="col-hide-md">Data</th>
               <th></th>
             </tr>
           </thead>
@@ -77,13 +77,13 @@ import { TableComponent } from '../../../shared/ui/table/table.component';
                   <p class="text-xs text-ink-muted">{{ order.customerEmail }}</p>
                 </td>
                 <td>{{ order.total | currencyBrl }}</td>
-                <td>{{ order.itemCount }}</td>
+                <td class="col-hide-sm">{{ order.itemCount }}</td>
                 <td>
                   <ui-badge [variant]="statusVariant(order.status)">
                     {{ statusLabel(order.status) }}
                   </ui-badge>
                 </td>
-                <td class="text-ink-muted">{{ order.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td class="col-hide-md text-ink-muted">{{ order.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
                 <td>
                   <a
                     [routerLink]="['/admin/orders', order.id]"

@@ -1,5 +1,6 @@
 using Ecommerce.Modules.Catalog.Application.Models;
 using Ecommerce.Modules.Catalog.Domain.Entities;
+using Ecommerce.Modules.Catalog.Domain.Enums;
 
 namespace Ecommerce.Modules.Catalog.Application.Mapping;
 
@@ -86,4 +87,36 @@ internal static class CatalogMapper
                 hasPrimary ? image.IsPrimary : index == 0))
             .ToList();
     }
+
+    public static PromotionResponse ToPromotionResponse(Promotion promotion) =>
+        new(
+            promotion.Id,
+            promotion.Slug,
+            promotion.Tag,
+            promotion.Title,
+            promotion.Subtitle,
+            promotion.Highlight,
+            promotion.HighlightLabel,
+            promotion.BackgroundClass,
+            promotion.FilterType.ToString(),
+            promotion.CategoryId,
+            promotion.MinPrice,
+            promotion.Keywords,
+            promotion.Products.Select(p => p.ProductId).ToList(),
+            promotion.DisplayOrder,
+            promotion.IsActive,
+            promotion.StartsAt,
+            promotion.EndsAt,
+            promotion.CreatedAt,
+            promotion.UpdatedAt);
+
+    public static PromotionBannerResponse ToBanner(Promotion promotion) =>
+        new(
+            promotion.Slug,
+            promotion.Tag,
+            promotion.Title,
+            promotion.Subtitle,
+            promotion.Highlight,
+            promotion.HighlightLabel,
+            promotion.BackgroundClass);
 }

@@ -10,6 +10,8 @@ internal sealed class CatalogDbContextAdapter(EcommerceDbContext dbContext) : IC
     public DbSet<Category> Categories => dbContext.Categories;
     public DbSet<Product> Products => dbContext.Products;
     public DbSet<ProductImage> ProductImages => dbContext.ProductImages;
+    public DbSet<Promotion> Promotions => dbContext.Promotions;
+    public DbSet<PromotionProduct> PromotionProducts => dbContext.PromotionProducts;
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
         dbContext.SaveChangesAsync(cancellationToken);

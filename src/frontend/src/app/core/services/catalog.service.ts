@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api.config';
 import { ApiHttpService } from '../http/api-http.service';
 import {
+  CategorySummary,
   PagedResult,
   ProductDetail,
   ProductFilters,
@@ -36,5 +37,11 @@ export class CatalogService {
 
   getProductById(id: string): Observable<ProductDetail> {
     return this.api.get<ProductDetail>(`${ApiEndpoints.products}/${id}`);
+  }
+
+  listCategories(isActive = true): Observable<CategorySummary[]> {
+    return this.api.get<CategorySummary[]>(ApiEndpoints.categories, {
+      params: { isActive }
+    });
   }
 }

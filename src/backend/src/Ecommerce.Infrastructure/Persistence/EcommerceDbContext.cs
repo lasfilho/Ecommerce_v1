@@ -32,6 +32,8 @@ public sealed class EcommerceDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+    public DbSet<Promotion> Promotions => Set<Promotion>();
+    public DbSet<PromotionProduct> PromotionProducts => Set<PromotionProduct>();
     public DbSet<CartEntity> Carts => Set<CartEntity>();
     public DbSet<CartItem> CartItems => Set<CartItem>();
     public DbSet<Order> Orders => Set<Order>();

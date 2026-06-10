@@ -42,7 +42,7 @@ export class ButtonComponent {
 
   classes(): string {
     const base =
-      'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+      'inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
 
     const sizes: Record<ButtonSize, string> = {
       sm: 'h-9 px-3.5 text-sm',
@@ -52,7 +52,7 @@ export class ButtonComponent {
 
     const variants: Record<ButtonVariant, string> = {
       primary:
-        'bg-brand text-brand-foreground shadow-soft hover:bg-brand-hover active:scale-[0.98]',
+        'bg-brand text-brand-foreground shadow-sm hover:bg-brand-hover active:scale-[0.98]',
       secondary:
         'border border-border bg-surface-elevated text-ink hover:border-border-strong hover:bg-surface-muted',
       ghost: 'text-ink-muted hover:bg-surface-muted hover:text-ink',

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Ecommerce.Api.Extensions;
 using Serilog;
 
@@ -20,7 +21,11 @@ try
             .Enrich.WithThreadId()
             .WriteTo.Console());
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
     builder.Services.AddApplicationServices(builder.Configuration);
     builder.Services.AddApiVersioningConfiguration();
     builder.Services.AddSwaggerDocumentation();

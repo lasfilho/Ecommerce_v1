@@ -83,7 +83,7 @@ import { TextareaComponent } from '../../../shared/ui/textarea/textarea.componen
             <ui-textarea label="Descrição curta" formControlName="shortDescription" [rows]="2" />
             <ui-textarea label="Descrição completa" formControlName="longDescription" [rows]="5" />
 
-            <div class="grid gap-4 sm:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-3">
               <ui-input
                 label="Preço"
                 type="number"

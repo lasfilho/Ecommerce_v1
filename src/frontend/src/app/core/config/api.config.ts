@@ -9,6 +9,10 @@ export const ApiEndpoints = {
   },
   products: '/products',
   categories: '/categories',
+  promotions: {
+    base: '/promotions',
+    banners: '/promotions/banners'
+  },
   cart: '/cart',
   orders: '/orders',
   admin: {

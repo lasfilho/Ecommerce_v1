@@ -15,10 +15,6 @@ services:
       - /src/src/Ecommerce.Infrastructure/obj
       - /src/src/Ecommerce.Shared/bin
       - /src/src/Ecommerce.Shared/obj
-    command: >
-      sh -c "dotnet restore src/Ecommerce.Api/Ecommerce.Api.csproj &&
-             dotnet watch run --project src/Ecommerce.Api/Ecommerce.Api.csproj
-             --no-launch-profile --urls http://+:8080"
 
   frontend:
     build:

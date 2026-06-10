@@ -12,6 +12,8 @@ export interface CategorySummary {
   slug: string;
 }
 
+export type Category = CategorySummary;
+
 export interface ProductListItem {
   id: string;
   name: string;

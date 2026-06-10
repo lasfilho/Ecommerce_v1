@@ -16,30 +16,45 @@ public static partial class DatabaseSeeder
         await SeedRolesAsync(context, cancellationToken);
         await SeedAdminUserAsync(context, passwordHasher, cancellationToken);
         await SeedCatalogAsync(context, cancellationToken);
+        await SeedPromotionsAsync(context, cancellationToken);
 
         logger.LogInformation("Seed do banco de dados concluído.");
     }
+
+    private const string AdminEmail = "admin@ecommerce.local";
+    private const string AdminPassword = "Admin@123";
 
     private static async Task SeedAdminUserAsync(
         EcommerceDbContext context,
         IPasswordHasher passwordHasher,
         CancellationToken cancellationToken)
     {
-        if (await context.Users.AnyAsync(u => u.Email == "admin@ecommerce.local", cancellationToken))
+        var admin = await context.Users
+            .Include(u => u.UserRoles)
+            .FirstOrDefaultAsync(u => u.Email == AdminEmail, cancellationToken);
+
+        if (admin is null)
         {
-            return;
+            admin = new User(
+                AdminUserId,
+                AdminEmail,
+                passwordHasher.Hash(AdminPassword),
+                "Admin",
+                "Sistema",
+                DateTime.UtcNow);
+
+            context.Users.Add(admin);
+            context.UserRoles.Add(new UserRole(AdminUserId, AdminRoleId));
         }
+        else if (!passwordHasher.Verify(AdminPassword, admin.PasswordHash))
+        {
+            admin.SetPasswordHash(passwordHasher.Hash(AdminPassword), DateTime.UtcNow);
 
-        var admin = new User(
-            AdminUserId,
-            "admin@ecommerce.local",
-            passwordHasher.Hash("Admin@123"),
-            "Admin",
-            "Sistema",
-            DateTime.UtcNow);
-
-        context.Users.Add(admin);
-        context.UserRoles.Add(new UserRole(AdminUserId, AdminRoleId));
+            if (!admin.UserRoles.Any(ur => ur.RoleId == AdminRoleId))
+            {
+                context.UserRoles.Add(new UserRole(admin.Id, AdminRoleId));
+            }
+        }
 
         await context.SaveChangesAsync(cancellationToken);
     }

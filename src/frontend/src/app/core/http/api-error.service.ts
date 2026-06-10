@@ -23,10 +23,10 @@ export class ApiErrorService {
     const body = error.error as ProblemDetails | null;
 
     if (body?.errors) {
-      const firstField = Object.keys(body.errors)[0];
-      const firstMessage = firstField ? body.errors[firstField]?.[0] : undefined;
+      const entries = Object.entries(body.errors).filter(([field]) => field !== 'request');
+      const firstMessage = entries[0]?.[1]?.[0] ?? body.errors['request']?.[0];
       if (firstMessage) {
-        return firstMessage;
+        return this.humanizeValidationMessage(firstMessage);
       }
     }
 
@@ -71,6 +71,18 @@ export class ApiErrorService {
       default:
         return 'Não foi possível completar a operação. Tente novamente.';
     }
+  }
+
+  private humanizeValidationMessage(message: string): string {
+    if (message.includes('could not be converted') && message.includes('filterType')) {
+      return 'Tipo de filtro inválido. Atualize a página e tente novamente.';
+    }
+
+    if (message === 'The request field is required.') {
+      return 'Dados inválidos no envio. Verifique os campos e tente novamente.';
+    }
+
+    return message;
   }
 
   private mapCode(code: string): string | null {

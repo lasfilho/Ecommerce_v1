@@ -38,4 +38,10 @@ public sealed class User : Shared.Domain.AuditableEntity<Guid>
         IsActive = isActive;
         MarkUpdated(updatedAt);
     }
+
+    public void SetPasswordHash(string passwordHash, DateTime updatedAt)
+    {
+        PasswordHash = passwordHash;
+        MarkUpdated(updatedAt);
+    }
 }
